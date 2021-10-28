@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+
+  wd-frontend:
+    container_name: wd-frontend
+    build:
+      context: ./frontend
+      # dockerfile: Dockerfile.prod
+    ports:
+      - '3000:80'
+    depends_on:
+      - wd-api
+  wd-api:
+    container_name: wd-api
+    build:
+      context: ./api
+      # dockerfile: Dockerfile.prod
+    ports:
+      - '3001:3001'
+      - '8999:8999'
+    environment:
+      - RABITMQ_URL=amqp://rabbitmq
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    networks:
+        - rabbitmq_node
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    networks:
+        - rabbitmq_node
+
+networks:
+  rabbitmq_node:
+    driver: bridge

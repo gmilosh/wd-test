@@ -1,0 +1,46 @@
+{
+  "name": "wd-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "api": "ts-node-dev --respawn --transpile-only src/api.ts",
+    "service-scan": "SERVICE_NAME=scan ts-node-dev --respawn --transpile-only src/video.service.ts",
+    "service-edit": "SERVICE_NAME=edit ts-node-dev --respawn --transpile-only src/video.service.ts",
+    "service-prepare": "SERVICE_NAME=prepare ts-node-dev --respawn --transpile-only src/video.service.ts",
+    "service-finish": "SERVICE_NAME=finish ts-node-dev --respawn --transpile-only src/video.service.ts",
+    "dev": "concurrently \"npm:api\" \"npm:service-scan\" \"npm:service-edit\" \"npm:service-prepare\" \"npm:service-finish\"",
+    "build": "rm -rf build && tsc",
+    "start": "",
+    "lint": "npx eslint \"src/**\" --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/ws": "^8.2.0",
+    "amqplib": "^0.8.0",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "dayjs": "^1.10.7",
+    "express": "^4.17.1",
+    "pino": "^7.0.5",
+    "pino-pretty": "^7.1.0",
+    "ws": "^8.2.3"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.8.2",
+    "@types/config": "^0.0.39",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.6",
+    "@types/pino": "^6.3.12",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "concurrently": "^6.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.4"
+  }
+}
